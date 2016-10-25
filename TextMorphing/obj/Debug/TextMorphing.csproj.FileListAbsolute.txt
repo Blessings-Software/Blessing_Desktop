@@ -1,0 +1,10 @@
+C:\Users\Steal\AppData\Local\Temporary Projects\TextMorphing\bin\Debug\TextMorphing.exe.config
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\bin\Debug\TextMorphing.exe.config
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\bin\Debug\TextMorphing.exe
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\bin\Debug\TextMorphing.pdb
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.Properties.Resources.resources
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.csproj.GenerateResource.Cache
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.exe
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.pdb
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.SurfaceWindow.resources
+F:\프로그래밍\VisualStudio_Develop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.csprojResolveAssemblyReference.cache
