@@ -45,7 +45,7 @@
             this.webBrowser_page.MinimumSize = new System.Drawing.Size(18, 16);
             this.webBrowser_page.Name = "webBrowser_page";
             this.webBrowser_page.ScrollBarsEnabled = false;
-            this.webBrowser_page.Size = new System.Drawing.Size(521, 317);
+            this.webBrowser_page.Size = new System.Drawing.Size(521, 306);
             this.webBrowser_page.TabIndex = 0;
             this.webBrowser_page.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser_page.WebBrowserShortcutsEnabled = false;

@@ -121,6 +121,12 @@
     <Compile Include="Controls\Morphing\MorphingManager.cs" />
     <Compile Include="Controls\Morphing\PtrChain.cs" />
     <Compile Include="Controls\Morphing\PtrPoint.cs" />
+    <Compile Include="FormRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRegister.Designer.cs">
+      <DependentUpon>FormRegister.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,7 @@
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="loginresult.cs" />
     <Compile Include="Morphing\Bit2D.cs" />
     <Compile Include="Morphing\BitmapEx.cs" />
     <Compile Include="Morphing\CharacterFactory.cs" />
@@ -181,6 +188,9 @@
     <Compile Include="Wallpaper\Option.cs" />
     <Compile Include="Wallpaper\ScreenUtility.cs" />
     <Compile Include="Wallpaper\WinApi.cs" />
+    <EmbeddedResource Include="FormRegister.resx">
+      <DependentUpon>FormRegister.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,7 +228,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\background.jpg" />
@@ -274,6 +286,7 @@
     <Content Include="Backgorund\Night\7.jpg" />
     <Content Include="Backgorund\Night\8.jpg" />
     <Content Include="Backgorund\Night\9.jpg" />
+    <None Include="Resources\Close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -286,7 +286,7 @@
             this.menuStrip_top.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_top.Name = "menuStrip_top";
             this.menuStrip_top.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip_top.Size = new System.Drawing.Size(387, 24);
+            this.menuStrip_top.Size = new System.Drawing.Size(294, 24);
             this.menuStrip_top.TabIndex = 5;
             this.menuStrip_top.Text = "menuStrip1";
             // 
@@ -466,7 +466,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 330);
+            this.ClientSize = new System.Drawing.Size(294, 330);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button_restore);
             this.Controls.Add(this.button_apply);
