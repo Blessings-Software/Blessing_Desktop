@@ -12,6 +12,12 @@ using Microsoft.Win32;
 using System.Net;
 using System.Diagnostics;
 using TextMorphing;
+using Google.Apis.YouTube.v3;
+using Google.Apis.Services;
+using System.Threading;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Util.Store;
+
 namespace YoutubeWallpaper
 {
     public partial class Form_Main : Form
@@ -58,7 +64,7 @@ namespace YoutubeWallpaper
         }
 
         //#########################################################################################################
-
+        /*
         protected bool CheckUpdate()
         {
             using (var client = new WebClient())
@@ -115,7 +121,7 @@ namespace YoutubeWallpaper
 
             return false;
         }
-
+        */
         //#########################################################################################################
 
         protected void HideController()
@@ -175,7 +181,7 @@ namespace YoutubeWallpaper
             }
 
             url.Append("&vq=");
-
+            /*
             string quality = "";
             switch (m_option.VideoQuality)
             {
@@ -205,7 +211,7 @@ namespace YoutubeWallpaper
             }
 
            url.Append(quality);
-
+           */
             
             m_wallpaper = new Form_Wallpaper(m_option.ScreenIndex);
             m_wallpaper.Volume = m_option.Volume;
@@ -365,7 +371,7 @@ namespace YoutubeWallpaper
             ApplyAeroPeek();
 
 
-            Task.Factory.StartNew(CheckUpdate);
+           // Task.Factory.StartNew(CheckUpdate);
 
 
             LoadOption();
@@ -528,6 +534,86 @@ namespace YoutubeWallpaper
         private void radioButton_type_one_CheckedChanged(object sender, EventArgs e)
         {
             this.checkBox_isLive.Enabled = this.radioButton_type_one.Checked;
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                listView1.Clear();
+                UserCredential credential;
+                using (FileStream stream = new FileStream(Application.StartupPath + @"\client.json", FileMode.Open, FileAccess.Read))
+                {
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets,
+                        new[] { YouTubeService.Scope.Youtube, YouTubeService.Scope.YoutubeUpload },
+                        "user",
+                        CancellationToken.None,
+                        new FileDataStore("YouTube.Auth.Store")).Result;
+                }
+                var youtube = new YouTubeService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    //ApiKey = "AIzaSyDLZD-Gm08xZ9L9fplGMXdhF5CbLGDhv8c", // 키 지정
+                    ApplicationName = "YoutubeSearch"
+                });
+
+                // Search용 Request 생성
+                var request = youtube.Search.List("snippet");
+                request.Q = textBox1.Text;  //ex: "양희은"
+                request.MaxResults = 50;
+
+                // Search용 Request 실행
+                var result = await request.ExecuteAsync();
+
+                // Search 결과를 리스트뷰에 담기
+                foreach (var item in result.Items)
+                {
+                    if (item.Id.Kind == "youtube#video")
+                    {
+                        listView1.Items.Add(item.Id.VideoId.ToString(), item.Snippet.Title, 0);
+                    }
+                }
+                YouTubeService ytservice = new YouTubeService();
+                var videoRequest = ytservice.Videos.List("snippet");
+                videoRequest.Id = result.Items[0].Id.VideoId;
+                var response = videoRequest.Execute();
+            }
+            catch(Exception)
+            {
+                //throw new Exception();
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    string videoId = listView1.SelectedItems[0].Name;
+                    string youtubeUrl = "http://youtube.com/watch?v=" + videoId;
+                    var youtube = new YouTubeService(new BaseClientService.Initializer()
+                    {
+                        ApiKey = "AIzaSyDLZD-Gm08xZ9L9fplGMXdhF5CbLGDhv8c", // 키 지정
+                        ApplicationName = "YoutubeSearch"
+                    });
+                    var request = youtube.Search.List("contentDetails.definition");
+                    var result = await request.ExecuteAsync();
+                    m_option.Id = videoId;
+                    textBox1.Text = videoId;
+
+                }
+            }
+            catch(Exception)
+            {
+
+            }
         }
     }
 }

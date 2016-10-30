@@ -35,7 +35,11 @@ namespace TextMorphing
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_Main());
+            LoginForm l = new LoginForm();
+            l.Show();
+            //SurfaceWindow s = new SurfaceWindow();
+            //s.Show();
+            Application.Run();
         }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

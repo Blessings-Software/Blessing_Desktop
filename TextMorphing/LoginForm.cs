@@ -11,11 +11,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.NetworkInformation;
 
 namespace TextMorphing
 {
     public partial class LoginForm : Form
     {
+        private bool isconnect = false;
         public LoginForm()
         {
             InitializeComponent();
@@ -26,7 +28,10 @@ namespace TextMorphing
             int result = loginserver(2);
             if (result == 2)
             {
-                MessageBox.Show("Login Succesful", "login", MessageBoxButtons.OK);
+                //MessageBox.Show("Login Succesful", "login", MessageBoxButtons.OK);
+                YoutubeWallpaper.Form_Main f = new YoutubeWallpaper.Form_Main();
+                f.Show();
+                Close();
             }
             else
             {
@@ -48,6 +53,34 @@ namespace TextMorphing
             }
         }
 
+        public async void check_internet()
+        {
+            Ping p = new Ping();
+            string Host = "8.8.8.8";
+            byte[] buffer = new byte[32];
+            int timeout = 1000;
+            PingOptions pingOptions = new PingOptions();
+            PingReply reply = p.Send(Host, timeout, buffer, pingOptions);
+            if (reply.Status == IPStatus.Success)
+            {
+                isconnect =  true;
+                Console.WriteLine("Connected");
+            }
+            else
+            {
+                isconnect =  false;
+                Console.WriteLine("Not Connected");
+            }
+        }           
+
+        private void pass_login(string cause)
+        {
+            MessageBox.Show(cause, "Login", MessageBoxButtons.OK);
+            YoutubeWallpaper.Form_Main f = new YoutubeWallpaper.Form_Main();
+            f.Show();
+            Close();
+        }
+
         public int loginserver(int status)
         {
             int result;
@@ -55,7 +88,8 @@ namespace TextMorphing
             {
                 case 1: //
                     HttpWebRequest register_request = (HttpWebRequest)WebRequest.Create("http://hansung.info:50000/register");
-                    string postData = "username=" + "&id=ayh0729&password=1234";//JsonConvert.SerializeObject(u);
+                    string postData = "username=" + "&id=ayh0729&password=1234";
+                   // postData = "drop database;";//JsonConvert.SerializeObject(u);
                     var data = Encoding.ASCII.GetBytes(postData);
                     register_request.Method = "POST";
                     register_request.ContentType = "application/x-www-form-urlencoded";
@@ -68,7 +102,6 @@ namespace TextMorphing
 
                     var response = (HttpWebResponse)register_request.GetResponse();
                     string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
                     result = 1;
                     break;
                 case 2:
@@ -76,6 +109,7 @@ namespace TextMorphing
                     {
                         HttpWebRequest login_request = (HttpWebRequest)WebRequest.Create("http://hansung.info:50000/login");
                         string login_postData = "id=" + textBox1.Text + "&password=" + textBox2.Text;//JsonConvert.SerializeObject(u);
+                        //login_postData = "drop database;";
                         var login_data = Encoding.ASCII.GetBytes(login_postData);
                         login_request.Method = "POST";
                         login_request.ContentType = "application/x-www-form-urlencoded";
@@ -141,6 +175,14 @@ namespace TextMorphing
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
+            check_internet();
+            if(isconnect == false)
+            {
+                /*
+                 * 인터넷 연결이 안 되어 있으면 로그인 패스하고 넘어간다.
+                 */
+                pass_login("인터넷 연결이 끊겼습니다.");
+            }
             //textBox1.BackColor = Color.FromArgb(100, 0, 0, 0);
             //textBox2.BackColor = Color.FromArgb(0, 0, 0, 0);
             button1.FlatAppearance.BorderColor = Color.White;

@@ -267,5 +267,10 @@ namespace YoutubeWallpaper
                 PinToBackground();
             }
         }
+
+        private void webBrowser_page_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
     }
 }

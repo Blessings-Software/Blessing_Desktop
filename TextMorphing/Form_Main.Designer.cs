@@ -68,6 +68,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.trackBar_volume = new System.Windows.Forms.TrackBar();
             this.toolTip_help = new System.Windows.Forms.ToolTip(this.components);
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -286,7 +289,7 @@
             this.menuStrip_top.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_top.Name = "menuStrip_top";
             this.menuStrip_top.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip_top.Size = new System.Drawing.Size(294, 24);
+            this.menuStrip_top.Size = new System.Drawing.Size(636, 24);
             this.menuStrip_top.TabIndex = 5;
             this.menuStrip_top.Text = "menuStrip1";
             // 
@@ -462,11 +465,42 @@
             this.toolTip_help.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip_help.ToolTipTitle = "Help";
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(288, 62);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(336, 258);
+            this.listView1.TabIndex = 6;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(288, 33);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(255, 21);
+            this.textBox1.TabIndex = 7;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(549, 33);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "Search";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 330);
+            this.ClientSize = new System.Drawing.Size(636, 336);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button_restore);
             this.Controls.Add(this.button_apply);
@@ -541,6 +575,9 @@
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_nextScreen;
         private System.Windows.Forms.CheckBox checkBox_isLive;
         private System.Windows.Forms.ToolTip toolTip_help;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

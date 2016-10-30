@@ -49,6 +49,7 @@
             this.webBrowser_page.TabIndex = 0;
             this.webBrowser_page.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser_page.WebBrowserShortcutsEnabled = false;
+            this.webBrowser_page.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_page_DocumentCompleted);
             // 
             // panel_cursor
             // 
