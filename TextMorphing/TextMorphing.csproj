@@ -187,6 +187,7 @@
     <Compile Include="Morphing\Bit2D.cs" />
     <Compile Include="Morphing\BitmapEx.cs" />
     <Compile Include="Morphing\CharacterFactory.cs" />
+    <Compile Include="PlayList.cs" />
     <Compile Include="SearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +212,12 @@
     <Compile Include="St2D\Collections\ILazyList.cs" />
     <Compile Include="St2D\Collections\LazyActionList.cs" />
     <Compile Include="St2D\Collections\LazyList.cs" />
+    <Compile Include="StartingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartingForm.Designer.cs">
+      <DependentUpon>StartingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SurfaceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,11 +233,15 @@
     <Compile Include="Wallpaper\Option.cs" />
     <Compile Include="Wallpaper\ScreenUtility.cs" />
     <Compile Include="Wallpaper\WinApi.cs" />
+    <Compile Include="YoutubeSender.cs" />
     <EmbeddedResource Include="FormRegister.resx">
       <DependentUpon>FormRegister.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Touchpad.resx">
+      <DependentUpon>Form_Touchpad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Wallpaper.resx">
       <DependentUpon>Form_Wallpaper.cs</DependentUpon>
@@ -243,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SongPlayer.resx">
       <DependentUpon>SongPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartingForm.resx">
+      <DependentUpon>StartingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SurfaceWindow.resx">
       <DependentUpon>SurfaceWindow.cs</DependentUpon>
@@ -327,7 +341,51 @@
     <Content Include="Backgorund\Night\7.jpg" />
     <Content Include="Backgorund\Night\8.jpg" />
     <Content Include="Backgorund\Night\9.jpg" />
+    <None Include="Resources\ic_speaker.png" />
+    <None Include="Resources\btn-play.png" />
+    <None Include="Resources\btn_up.png" />
+    <None Include="Resources\btn_stop.png" />
+    <None Include="Resources\btn_shuffle.png" />
+    <None Include="Resources\btn_search.png" />
+    <None Include="Resources\btn_line.png" />
+    <None Include="Resources\btn_latter.png" />
+    <None Include="Resources\btn_file.png" />
+    <None Include="Resources\btn_end.png" />
+    <None Include="Resources\btn_down.png" />
+    <None Include="Resources\btn_delete.png" />
+    <None Include="Resources\btn_coiceplay.png" />
+    <None Include="Resources\btn_before.png" />
+    <None Include="Resources\mainplayer.png" />
     <None Include="Resources\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MediaPlayer">
+      <Guid>{22D6F304-B0F6-11D0-94AB-0080C74C7E95}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

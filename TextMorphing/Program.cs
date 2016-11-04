@@ -35,10 +35,10 @@ namespace TextMorphing
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            LoginForm l = new LoginForm();
+           LoginForm l = new LoginForm();
             l.Show();
             //SurfaceWindow s = new SurfaceWindow();
-            //s.Show();
+           // s.Show();
             Application.Run();
         }
 

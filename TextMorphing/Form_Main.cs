@@ -29,7 +29,7 @@ namespace YoutubeWallpaper
 
         //#########################################################################################################
 
-        protected readonly string AppName = "NeuroWhAI_YoutubeWallpaper";
+        protected readonly string AppName = "YoutubeWallpaper";
 
         protected readonly string OptionFile = Path.Combine(Application.StartupPath, "Option.dat");
         protected Option m_option = new Option();
@@ -65,58 +65,7 @@ namespace YoutubeWallpaper
 
         //#########################################################################################################
         /*
-        protected bool CheckUpdate()
-        {
-            using (var client = new WebClient())
-            {
-                try
-                {
-                    var info = client.DownloadString(@"https://raw.githubusercontent.com/NeuroWhAI/YoutubeWallpaper/master/YoutubeWallpaper/Properties/AssemblyInfo.cs");
-
-                    int begin = info.LastIndexOf("AssemblyVersion");
-                    if (begin >= 0)
-                    {
-                        begin = info.IndexOf('\"', begin) + 1;
-                        int end = info.IndexOf('\"', begin);
-
-                        string version = info.Substring(begin, end - begin);
-
-                        if (Version.Parse(version) > Version.Parse(Application.ProductVersion))
-                        {
-                            string message = $@"새로운 버전이 확인되었습니다!
-종료하고 다운로드 페이지를 여시겠습니까?
-최신 버전 : {version}
-현재 버전 : {Application.ProductVersion}";
-
-                            if (MessageBox.Show(message, "Update",
-                                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                            {
-                                Process.Start(@"http://blog.naver.com/neurowhai/220810470139");
-
-
-                                Application.Exit();
-
-
-                                return true;
-                            }
-                        }
-                    }
-                }
-                catch (WebException)
-                {
-                    MessageBox.Show("업데이트 확인에 실패하였습니다.\n인터넷 연결을 확인하세요.", "Warning!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                catch (Exception)
-                {
-#if DEBUG
-                    throw;
-#else
-                    MessageBox.Show("알 수 없는 이유로 업데이트 확인에 실패하였습니다.", "Warning!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-#endif
-                }
-            }
+     
 
 
             return false;
@@ -170,17 +119,18 @@ namespace YoutubeWallpaper
 
             url.Append(m_option.Id);
 
-            url.Append(@"&autoplay=1&loop=1&controls=0&showinfo=0&autohide=1&modestbranding=1&rel=0");
+            url.Append(@"&autoplay=1&controls=0&showinfo=0&autohide=1&modestbranding=1&rel=0");
 
             // OneVideo는 구버전 플레이어만 loop를 지원하므로 그렇게하되
             // 실시간 동영상이면 그렇게하지 않는다.
+            /*
             if (m_option.IdType == Option.Type.OneVideo
                 && m_option.IsLive == false)
             {
                 url.Append(@"&version=2");
             }
-
-            url.Append("&vq=");
+            */
+            //url.Append("&vq=");
             /*
             string quality = "";
             switch (m_option.VideoQuality)
@@ -228,10 +178,10 @@ namespace YoutubeWallpaper
             }
             else
             {
-                MessageBox.Show("배경화면을 설정할 수 없습니다.", "Error!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+               // MessageBox.Show("배경화면을 설정할 수 없습니다.", "Error!",
+               //     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                StopWallpaper();
+                //StopWallpaper();
             }
         }
 
@@ -242,6 +192,23 @@ namespace YoutubeWallpaper
                 m_wallpaper.Close();
                 m_wallpaper.Dispose();
                 m_wallpaper = null;
+            }
+        }
+
+        protected void PauseWallpaper()
+        {
+            if (m_wallpaper != null)
+            {
+                m_wallpaper.Pause(); //100ms동안 멈춤
+                //Timer가 100마다 돌면서 체크해주면 됨.
+            }
+        }
+
+        protected void ResumeWallpaper()
+        {
+            if (m_wallpaper != null)
+            {
+                m_wallpaper.ResumeLayout();
             }
         }
 
@@ -264,11 +231,11 @@ namespace YoutubeWallpaper
 
                 if (m_wallpaper.IsFixed == false)
                 {
-                    MessageBox.Show("배경화면을 설정할 수 없습니다.", "Error!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                   // MessageBox.Show("배경화면을 설정할 수 없습니다.", "Error!",
+                    //    MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
-                    StopWallpaper();
+                   // StopWallpaper();
                 }
             }
         }
@@ -368,14 +335,13 @@ namespace YoutubeWallpaper
 
         private void Form_Main_Load(object sender, EventArgs e)
         {
-            ApplyAeroPeek();
+           // ApplyAeroPeek();
 
 
            // Task.Factory.StartNew(CheckUpdate);
 
 
-            LoadOption();
-
+            LoadOption();//
 
             // 시작프로그램 여부 알아내기
             using (var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
@@ -541,20 +507,9 @@ namespace YoutubeWallpaper
             try
             {
                 listView1.Clear();
-                UserCredential credential;
-                using (FileStream stream = new FileStream(Application.StartupPath + @"\client.json", FileMode.Open, FileAccess.Read))
-                {
-                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                        GoogleClientSecrets.Load(stream).Secrets,
-                        new[] { YouTubeService.Scope.Youtube, YouTubeService.Scope.YoutubeUpload },
-                        "user",
-                        CancellationToken.None,
-                        new FileDataStore("YouTube.Auth.Store")).Result;
-                }
                 var youtube = new YouTubeService(new BaseClientService.Initializer()
                 {
-                    HttpClientInitializer = credential,
-                    //ApiKey = "AIzaSyDLZD-Gm08xZ9L9fplGMXdhF5CbLGDhv8c", // 키 지정
+                    ApiKey = "AIzaSyDLZD-Gm08xZ9L9fplGMXdhF5CbLGDhv8c", // 키 지정
                     ApplicationName = "YoutubeSearch"
                 });
 
@@ -575,9 +530,9 @@ namespace YoutubeWallpaper
                     }
                 }
                 YouTubeService ytservice = new YouTubeService();
-                var videoRequest = ytservice.Videos.List("snippet");
-                videoRequest.Id = result.Items[0].Id.VideoId;
-                var response = videoRequest.Execute();
+                //var videoRequest = ytservice.Videos.List("snippet");
+                /////videoRequest.Id = result.Items[0].Id.VideoId;
+                //var response = videoRequest.Execute();
             }
             catch(Exception)
             {
@@ -590,29 +545,69 @@ namespace YoutubeWallpaper
 
         }
 
-        private async void listView1_DoubleClick(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView1_DoubleClick(object sender, EventArgs e)
         {
             try
             {
                 if (listView1.SelectedItems.Count > 0)
                 {
+                    Console.WriteLine("Search Start");
                     string videoId = listView1.SelectedItems[0].Name;
-                    string youtubeUrl = "http://youtube.com/watch?v=" + videoId;
-                    var youtube = new YouTubeService(new BaseClientService.Initializer()
-                    {
-                        ApiKey = "AIzaSyDLZD-Gm08xZ9L9fplGMXdhF5CbLGDhv8c", // 키 지정
-                        ApplicationName = "YoutubeSearch"
-                    });
-                    var request = youtube.Search.List("contentDetails.definition");
-                    var result = await request.ExecuteAsync();
+                    //string youtubeUrl = "http://youtube.com/watch?v=" + videoId;
                     m_option.Id = videoId;
-                    textBox1.Text = videoId;
-
+                    YoutubeSender.m_YoutubeId = videoId;
+                    var req = (HttpWebRequest)WebRequest.Create("https://www.googleapis.com/youtube/v3/videos?id="+videoId+ "&part=contentDetails&key=AIzaSyDLZD-Gm08xZ9L9fplGMXdhF5CbLGDhv8c");
+                    req.Method = "GET";
+                    var res = (HttpWebResponse)req.GetResponse();
+                    var res_str = new StreamReader(res.GetResponseStream()).ReadToEnd();
+                    Console.WriteLine(res_str);
+                    for (int i = listView1.SelectedItems[0].Index; i<listView1.Items.Count;i++)
+                    {
+                        YoutubeSender.m_YoutubeList[i] = listView1.Items[i].Name;
+                    }
+                    //MessageBox.Show(videoId);
+                    textBox_id.Text = videoId;
                 }
             }
             catch(Exception)
             {
 
+            }
+        }
+        public bool m_wallpaperstopped = false;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (m_wallpaperstopped)
+            {
+               // timer1.Stop();
+                m_wallpaperstopped = false;
+                ResumeWallpaper();
+            }
+            else
+            {
+                //timer1.Start();
+                 m_wallpaperstopped = true;
+                m_wallpaper.Pause();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (m_wallpaperstopped)
+            {
+                m_wallpaperstopped = false;
+                ResumeWallpaper();
+            }
+            else
+            {
+                m_wallpaperstopped = true;
+                //PauseWallpaper();
+                Thread.Sleep(100);
             }
         }
     }

@@ -71,6 +71,8 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -260,7 +262,7 @@
             this.button_apply.Location = new System.Drawing.Point(10, 290);
             this.button_apply.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_apply.Name = "button_apply";
-            this.button_apply.Size = new System.Drawing.Size(130, 30);
+            this.button_apply.Size = new System.Drawing.Size(96, 30);
             this.button_apply.TabIndex = 4;
             this.button_apply.Text = "Save and Start";
             this.toolTip_help.SetToolTip(this.button_apply, "설정을 저장하고 플레이어를 실행시킵니다.");
@@ -269,12 +271,12 @@
             // 
             // button_restore
             // 
-            this.button_restore.Location = new System.Drawing.Point(153, 290);
+            this.button_restore.Location = new System.Drawing.Point(181, 290);
             this.button_restore.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_restore.Name = "button_restore";
-            this.button_restore.Size = new System.Drawing.Size(130, 30);
+            this.button_restore.Size = new System.Drawing.Size(96, 30);
             this.button_restore.TabIndex = 5;
-            this.button_restore.Text = "Restore option";
+            this.button_restore.Text = "Next Video";
             this.toolTip_help.SetToolTip(this.button_restore, "옵션을 저장하기 전으로 되돌립니다.");
             this.button_restore.UseVisualStyleBackColor = true;
             this.button_restore.Click += new System.EventHandler(this.button_restore_Click);
@@ -289,7 +291,7 @@
             this.menuStrip_top.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_top.Name = "menuStrip_top";
             this.menuStrip_top.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip_top.Size = new System.Drawing.Size(636, 24);
+            this.menuStrip_top.Size = new System.Drawing.Size(632, 24);
             this.menuStrip_top.TabIndex = 5;
             this.menuStrip_top.Text = "menuStrip1";
             // 
@@ -493,11 +495,26 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(112, 290);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(63, 32);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "PAUSE";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 336);
+            this.ClientSize = new System.Drawing.Size(632, 334);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.listView1);
@@ -578,6 +595,8 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

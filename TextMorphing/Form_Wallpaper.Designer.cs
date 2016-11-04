@@ -37,19 +37,16 @@
             // webBrowser_page
             // 
             this.webBrowser_page.AllowWebBrowserDrop = false;
-            this.webBrowser_page.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser_page.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser_page.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser_page.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.webBrowser_page.MinimumSize = new System.Drawing.Size(18, 16);
+            this.webBrowser_page.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser_page.Name = "webBrowser_page";
             this.webBrowser_page.ScrollBarsEnabled = false;
-            this.webBrowser_page.Size = new System.Drawing.Size(521, 306);
+            this.webBrowser_page.Size = new System.Drawing.Size(521, 317);
             this.webBrowser_page.TabIndex = 0;
             this.webBrowser_page.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser_page.WebBrowserShortcutsEnabled = false;
-            this.webBrowser_page.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_page_DocumentCompleted);
+            this.webBrowser_page.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_page_DocumentCompleted_1);
             // 
             // panel_cursor
             // 

@@ -64,3 +64,9 @@ D:\Desktop\TextMorphing\TextMorphing\bin\Debug\Microsoft.Dynamic.xml
 D:\Desktop\TextMorphing\TextMorphing\bin\Debug\Microsoft.Scripting.xml
 D:\Desktop\TextMorphing\TextMorphing\bin\Debug\Microsoft.Scripting.AspNet.xml
 D:\Desktop\TextMorphing\TextMorphing\bin\Debug\Microsoft.Scripting.Metadata.xml
+D:\Desktop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.SongPlayer.resources
+D:\Desktop\TextMorphing\TextMorphing\obj\Debug\YoutubeWallpaper.Form_Touchpad.resources
+D:\Desktop\TextMorphing\TextMorphing\obj\Debug\Interop.MediaPlayer.dll
+D:\Desktop\TextMorphing\TextMorphing\obj\Debug\Interop.WMPLib.dll
+D:\Desktop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.csproj.ResolveComReference.cache
+D:\Desktop\TextMorphing\TextMorphing\obj\Debug\TextMorphing.StartingForm.resources

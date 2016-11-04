@@ -21,8 +21,7 @@ namespace YoutubeWallpaper
 
             OwnerScreenIndex = ownerScreenIndex;
 
-            this.ClientSize = DesktopBounds.Size;
-            webBrowser_page.Size = ClientSize;
+
             PinToBackground();
         }
 
@@ -71,6 +70,31 @@ namespace YoutubeWallpaper
         }
 
         private int m_ownerScreenIndex = 0;
+
+        public void Pause()
+        {
+            IntPtr flash = this.PlayerHandle;
+            if (flash != IntPtr.Zero)
+            {
+                IntPtr result = IntPtr.Zero;
+
+                // 첫번째 클릭에서 포커스를 잠깐 얻고
+                // 두번째 클릭에서 실제로 클릭이 처리되게 하게끔 함.
+                // TODO: 아래 방법은 개선되어야 함.
+                for (int step = 0; step < 2; ++step)
+                {
+                    WinApi.SendMessageTimeout(flash, 0x201/*DOWN*/, new IntPtr(1), new IntPtr(WinApi.MakeParam(500, 1000)),WinApi.SendMessageTimeoutFlags.SMTO_NORMAL, 0, out result);
+                    //WinApi.SendMessageTimeout(flash, 0x202/*UP*/, new IntPtr(1), new IntPtr(WinApi.MakeParam(500, 1000)),
+                    //    WinApi.SendMessageTimeoutFlags.SMTO_NORMAL, 0, out result);
+                }
+            }
+        }
+
+        public void Resume()
+        {
+
+        }
+
         public int OwnerScreenIndex
         {
             get { return m_ownerScreenIndex; }
@@ -84,7 +108,7 @@ namespace YoutubeWallpaper
                 if (m_ownerScreenIndex != value)
                 {
                     m_ownerScreenIndex = value;
-                    
+
                     PinToBackground();
                 }
             }
@@ -107,10 +131,10 @@ namespace YoutubeWallpaper
         protected bool m_needUpdate = false;
 
         //#############################################################################################
-
+        IntPtr flash = IntPtr.Zero;
         protected IntPtr UpdatePlayerHandle()
         {
-            IntPtr flash = IntPtr.Zero;
+            
             flash = WinApi.FindWindowEx(this.webBrowser_page.Handle, IntPtr.Zero, "Shell Embedding", IntPtr.Zero);
             flash = WinApi.FindWindowEx(flash, IntPtr.Zero, "Shell DocObject View", IntPtr.Zero);
             flash = WinApi.FindWindowEx(flash, IntPtr.Zero, "Internet Explorer_Server", IntPtr.Zero);
@@ -155,7 +179,6 @@ namespace YoutubeWallpaper
 
         protected bool PinToBackground()
         {
-            
             m_isFixed = BehindDesktopIcon.FixBehindDesktopIcon(this.Handle);
 
             if (m_isFixed)
@@ -269,6 +292,11 @@ namespace YoutubeWallpaper
         }
 
         private void webBrowser_page_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void webBrowser_page_DocumentCompleted_1(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
 
         }

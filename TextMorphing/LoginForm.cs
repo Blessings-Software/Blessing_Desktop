@@ -23,9 +23,40 @@ namespace TextMorphing
             InitializeComponent();
         }
 
+        public bool IsOnlyEnglish(string strString)
+        {
+            bool bResult = true;
+            StringBuilder sb = new StringBuilder(strString);
+            int nLength = strString.Length;
+            int nSumLength = 0;    //전체 자리수
+            for (int i = 0; i < nLength; i++)
+            {
+                char c = sb[i];
+                string a = char.GetUnicodeCategory(sb[i]).ToString();
+                if (a == "OtherLetter") //한글이면
+                {
+                    bResult = false; //한글이 존재하면
+                    break;
+                }
+                //else if(a=="")//영문이면
+
+            }
+            return bResult;
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            int result = loginserver(2);
+            int result;
+            if (!IsOnlyEnglish(textBox1.Text))
+            {
+                //한글이 있으면, username값으로 판정
+                result = loginserver(4);
+            }
+            else
+            {
+                result =  loginserver(2);
+            }
             if (result == 2)
             {
                 //MessageBox.Show("Login Succesful", "login", MessageBoxButtons.OK);
@@ -36,7 +67,9 @@ namespace TextMorphing
             else
             {
                 MessageBox.Show("Error Occured", "login", MessageBoxButtons.OK);
+                pass_login("인터넷 연결이 끊겼습니다.");
             }
+
         }
         public static string getBetween(string strSource, string strStart, string strEnd)
         {
@@ -140,6 +173,7 @@ namespace TextMorphing
                             if (resp != null && resp.StatusCode == HttpStatusCode.NotFound)
                             {
                                 MessageBox.Show("Server is currentely down or server address changed.", "login error", MessageBoxButtons.OK);
+                                pass_login("인터넷 연결이 끊겼습니다.");
                             }
                         }
                         result = -1;
@@ -149,6 +183,48 @@ namespace TextMorphing
                 case 3:
                     HttpWebRequest removerequest = (HttpWebRequest)WebRequest.Create("http://hansung.info:50000/remove");
                     result = 3;
+                    break;
+                case 4:
+                    try
+                    {
+                        HttpWebRequest login_request = (HttpWebRequest)WebRequest.Create("http://hansung.info:50000/login/facebook");
+                        string login_postData = "username=" + textBox1.Text;//username만 보낸다.
+                        //login_postData = "drop database;";
+                        var login_data = Encoding.ASCII.GetBytes(login_postData);
+                        login_request.Method = "POST";
+                        login_request.ContentType = "application/x-www-form-urlencoded";
+
+                        login_request.ContentLength = login_data.Length;
+                        using (var stream = login_request.GetRequestStream())
+                        {
+                            stream.Write(login_data, 0, login_data.Length);
+                        }
+
+                        var login_response = (HttpWebResponse)login_request.GetResponse();
+                        var login_responseString = new StreamReader(login_response.GetResponseStream()).ReadToEnd();
+                        //MessageBox.Show(login_responseString);
+                        if (login_responseString.Contains("false"))
+                        {
+                            result = -1;
+                        }
+                        else
+                        {
+                            result = 2;
+                        }
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Status == WebExceptionStatus.ProtocolError)
+                        {
+                            HttpWebResponse resp = ex.Response as HttpWebResponse;
+                            if (resp != null && resp.StatusCode == HttpStatusCode.NotFound)
+                            {
+                                MessageBox.Show("Server is currentely down or server address changed.", "login error", MessageBoxButtons.OK);
+                            }
+                        }
+                        result = -1;
+                    }
+
                     break;
                 default:
                     result = -1;
@@ -189,13 +265,16 @@ namespace TextMorphing
 
             button1.FlatAppearance.BorderSize = 2;
             button2.FlatAppearance.BorderSize = 2;
+            button3.FlatAppearance.BorderSize = 2;
             button2.FlatAppearance.BorderColor = Color.White;
+            button3.FlatAppearance.BorderColor = Color.White;
             int hour = DateTime.Now.Hour;
             if (hour >= 22 || hour <= 4)
             {
                 //밤에는 버튼 배경이 반투명한 흰색
                 button1.BackColor = Color.FromArgb(100, 255, 255, 255);
                 button2.BackColor = Color.FromArgb(100, 255, 255, 255);
+                button3.BackColor = Color.FromArgb(100, 255, 255, 255);
                 //밤일때
                 Random r = new Random(unchecked((int)DateTime.Now.Ticks) + 1);
                 int random = r.Next(1, 9);
@@ -238,6 +317,7 @@ namespace TextMorphing
                 //낮에는 버튼 배경이 반투명한 검정
                 button1.BackColor = Color.FromArgb(100, 0, 0, 0);
                 button2.BackColor = Color.FromArgb(100, 0, 0, 0);
+                button3.BackColor = Color.FromArgb(100, 0, 0, 0);
                 Random r = new Random();
                 int random = r.Next(1, 9);
                 switch (random)
@@ -296,6 +376,12 @@ namespace TextMorphing
         {
             DialogResult d = new DialogResult();
             Application.Exit();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://soylatte.kr:50000/auth/facebook");
+            
         }
     }
 }

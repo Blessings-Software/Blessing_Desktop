@@ -28,19 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Touchpad));
             this.SuspendLayout();
             // 
             // Form_Touchpad
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 191);
+            this.ClientSize = new System.Drawing.Size(276, 153);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
-            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form_Touchpad";
-            this.Opacity = 0.7D;
+            this.Opacity = 0.2D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Touchpad";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Touchpad_FormClosing);
